@@ -22,17 +22,17 @@ class ItemAdapter(var activityContext: Context) : RecyclerView.Adapter<ItemAdapt
         val binding = ListItemBinding.bind(itemView)
 
         init {
-            itemView.setOnClickListener(object: View.OnClickListener {
-                override fun onClick(view: View?) {
-                    val positionIndex = adapterPosition
-                    val intent = Intent(activityContext, ItemActivity::class.java)
-                    intent.putExtra(ItemActivity.KEY, itemsList[positionIndex])
-                    activityContext.startActivity(intent)
-                    Toast.makeText(activityContext, "Выбран елемент c Id ${itemsList[positionIndex].id}", Toast.LENGTH_SHORT).show()
-//                    Toast.makeText(itemView.context, itemsList[positionIndex].toString(), Toast.LENGTH_SHORT).show()
-//                    Toast.makeText(view?.context, itemsList[positionIndex].toString(), Toast.LENGTH_SHORT).show()
-                }
-            })
+            itemView.setOnClickListener {
+                val positionIndex = adapterPosition
+                val intent = Intent(activityContext, ItemActivity::class.java)
+                intent.putExtra(ItemActivity.KEY, itemsList[positionIndex])
+                activityContext.startActivity(intent)
+                Toast.makeText(activityContext,
+                    "Выбран елемент c Id ${itemsList[positionIndex].id}",
+                    Toast.LENGTH_SHORT).show()
+                //                    Toast.makeText(itemView.context, itemsList[positionIndex].toString(), Toast.LENGTH_SHORT).show()
+                //                    Toast.makeText(view?.context, itemsList[positionIndex].toString(), Toast.LENGTH_SHORT).show()
+            }
         }
 
         fun bindItem(item: Item) {
@@ -62,6 +62,5 @@ class ItemAdapter(var activityContext: Context) : RecyclerView.Adapter<ItemAdapt
         itemsList.add(item)
         notifyDataSetChanged()
     }
-
 
 }
