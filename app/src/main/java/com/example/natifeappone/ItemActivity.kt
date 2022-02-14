@@ -7,6 +7,7 @@ import com.example.natifeappone.databinding.ActivityItemBinding
 import com.example.natifeappone.model.Item
 
 class ItemActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityItemBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +23,10 @@ class ItemActivity : AppCompatActivity() {
             tvItemDescription.text = item?.description
         }
     }
+
     companion object {
+
         const val KEY = "itemObject"
+
     }
 }

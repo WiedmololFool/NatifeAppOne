@@ -8,27 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.natifeappone.databinding.ListItemBinding
 import com.example.natifeappone.model.Item
 
-class ItemListAdapter(private val onItemClickListener: OnItemClickListener) : ListAdapter<Item, ItemListAdapter.ItemViewHolder>(ItemComparator()) {
-
-   inner class ItemViewHolder(private val binding: ListItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bindItem(item: Item) = with(binding) {
-            tvName.text = item.name
-            root.setOnClickListener{
-               onItemClickListener.onClickItem(getItem(adapterPosition))
-            }
-        }
-    }
-
-    class ItemComparator: DiffUtil.ItemCallback<Item>(){
-        override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
-           return oldItem == newItem
-        }
-
-        override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean {
-            return oldItem == newItem
-        }
-    }
+class ItemListAdapter(
+    private val onItemClickListener: OnItemClickListener,
+) : ListAdapter<Item, ItemListAdapter.ItemViewHolder>(ItemComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -38,4 +20,29 @@ class ItemListAdapter(private val onItemClickListener: OnItemClickListener) : Li
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.bindItem(getItem(position))
     }
+
+    inner class ItemViewHolder(
+        private val binding: ListItemBinding,
+    ) : RecyclerView.ViewHolder(binding.root) {
+
+        fun bindItem(item: Item) = with(binding) {
+            tvName.text = item.name
+            root.setOnClickListener {
+                onItemClickListener.onClickItem(item)
+            }
+        }
+    }
+
+    class ItemComparator : DiffUtil.ItemCallback<Item>() {
+
+        override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean {
+            return oldItem == newItem
+        }
+    }
+
+
 }

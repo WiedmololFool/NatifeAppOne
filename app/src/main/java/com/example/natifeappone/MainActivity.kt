@@ -14,7 +14,7 @@ import com.example.natifeappone.model.Item
 
 class MainActivity : AppCompatActivity() {
 
-    private val list = ArrayList<Item>()
+    private var list = listOf<Item>()
     private lateinit var binding: ActivityMainBinding
     private lateinit var itemListAdapter: ItemListAdapter
 
@@ -24,12 +24,15 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        for (i in 0..19) {
-            list.add(Item(i, "Item $i", "Description of item $i"))
+        list = (0 until 20).map {
+            Item(it, "Item $it", "Description of item $it")
+        }
+        list.map{
+
         }
 
-
         itemListAdapter = ItemListAdapter(object : OnItemClickListener{
+
             override fun onClickItem(item: Item) {
                 val intent = Intent(this@MainActivity, ItemActivity::class.java)
                 intent.putExtra(ItemActivity.KEY, item)
@@ -44,6 +47,8 @@ class MainActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = itemListAdapter
         }
+        list = list + Item(101, "My Item", "My Custom Item")
         itemListAdapter.submitList(list)
+
     }
 }
