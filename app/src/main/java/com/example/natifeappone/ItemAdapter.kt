@@ -11,8 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.natifeappone.databinding.ListItemBinding
 import com.example.natifeappone.model.Item
 
-class ItemAdapter(var activityContext: Context) : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
-     private var itemsList = ArrayList<Item>()
+class ItemAdapter(private val onItemClickListener: OnItemClickListener) :
+    RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
+    private var itemsList = ArrayList<Item>()
 
     companion object {
         var viewHolderCount: Int = 0
@@ -23,15 +24,7 @@ class ItemAdapter(var activityContext: Context) : RecyclerView.Adapter<ItemAdapt
 
         init {
             itemView.setOnClickListener {
-                val positionIndex = adapterPosition
-                val intent = Intent(activityContext, ItemActivity::class.java)
-                intent.putExtra(ItemActivity.KEY, itemsList[positionIndex])
-                activityContext.startActivity(intent)
-                Toast.makeText(activityContext,
-                    "Выбран елемент c Id ${itemsList[positionIndex].id}",
-                    Toast.LENGTH_SHORT).show()
-                //                    Toast.makeText(itemView.context, itemsList[positionIndex].toString(), Toast.LENGTH_SHORT).show()
-                //                    Toast.makeText(view?.context, itemsList[positionIndex].toString(), Toast.LENGTH_SHORT).show()
+                onItemClickListener.onClickItem(itemsList[adapterPosition])
             }
         }
 
