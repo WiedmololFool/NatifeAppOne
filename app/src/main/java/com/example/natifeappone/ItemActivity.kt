@@ -16,7 +16,8 @@ class ItemActivity : AppCompatActivity() {
         binding = ActivityItemBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        val item = intent.getParcelableExtra<Item>(KEY)
+        val itemId = intent.getIntExtra(KEY, 404)
+        val item = ItemHolder.getItem(itemId)
         val itemPreferences = ItemPreferences(this)
         Toast.makeText(this, "Выбран елемент c Id ${itemPreferences.getId()}", Toast.LENGTH_SHORT).show()
         with(binding) {
