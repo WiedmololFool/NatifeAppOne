@@ -3,6 +3,7 @@ package com.example.natifeappone
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import com.example.natifeappone.databinding.ActivityItemBinding
 import com.example.natifeappone.model.Item
 
@@ -16,7 +17,8 @@ class ItemActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         val item = intent.getParcelableExtra<Item>(KEY)
-        Log.d("MyLogItemActivity", item.toString())
+        val itemPreferences = ItemPreferences(this)
+        Toast.makeText(this, "Выбран елемент c Id ${itemPreferences.getId()}", Toast.LENGTH_SHORT).show()
         with(binding) {
             tvId.text = item?.id.toString()
             tvItemName.text = item?.name
