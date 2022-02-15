@@ -21,9 +21,8 @@ class MainActivity : AppCompatActivity() {
 
         val itemPreferences = ItemPreferences(this)
 
-        for (i in 0 until 20){
-            ItemHolder.addItem(Item(i, "Item $i", "Description of item $i"))
-        }
+        ItemHolder.initItems()
+
 
         itemListAdapter = ItemListAdapter(object : OnItemClickListener {
 

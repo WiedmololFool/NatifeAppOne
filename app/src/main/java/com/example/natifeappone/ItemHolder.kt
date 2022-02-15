@@ -5,10 +5,12 @@ import com.example.natifeappone.model.Item
 object ItemHolder {
 
     var list = listOf<Item>()
-        private set
+      private set
 
-    fun addItem(item: Item){
-        list = list + listOf(item)
+    fun initItems(){
+        list = (0 until 20).map {
+            Item(it," Item $it", "Description of item $it")
+        }
     }
 
     fun getItem(id: Int): Item? {
