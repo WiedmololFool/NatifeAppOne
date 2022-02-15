@@ -23,7 +23,6 @@ class MainActivity : AppCompatActivity() {
 
         ItemHolder.initItems()
 
-
         itemListAdapter = ItemListAdapter(object : OnItemClickListener {
 
             override fun onClickItem(item: Item) {
