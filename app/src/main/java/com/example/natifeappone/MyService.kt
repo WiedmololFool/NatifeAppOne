@@ -1,22 +1,31 @@
 package com.example.natifeappone
 
+import android.annotation.SuppressLint
+import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
 import android.os.IBinder
+import android.util.Log
 import androidx.core.app.NotificationCompat
 
 class MyService : Service() {
 
 
+    @SuppressLint("LaunchActivityFromNotification")
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+
         val itemId = intent?.getIntExtra(SERVICE_KEY, 404)
-        val item = itemId?.let { ItemHolder.getItem(it) }
+        val notificationIntent = Intent("com.example.natifeappone.MY_ACTION")
+//        notificationIntent.putExtra("RECEIVER_ITEM_KEY", itemId)
+        Log.d("PutMyServiceID: ", itemId.toString())
+        val pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, 0)
 
         val notification = NotificationCompat.Builder(this, App.CHANNEL_1_ID)
             .setSmallIcon(R.drawable.ic_service_notification)
-            .setContentTitle("${item?.id} : ${item?.name}")
-            .setContentText(item?.description)
+            .setContentTitle("Foreground Service")
+            .setContentText("Tap to get last clicked Item")
             .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setContentIntent(pendingIntent)
             .build()
 
         startForeground(1, notification)

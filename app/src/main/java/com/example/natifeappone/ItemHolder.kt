@@ -4,11 +4,8 @@ import com.example.natifeappone.model.Item
 
 object ItemHolder {
 
-    var list = listOf<Item>()
-      private set
-
-    fun initItems(){
-        list = (0 until 20).map {
+    val list: List<Item> by lazy {
+        (0 until 20).map {
             Item(it," Item $it", "Description of item $it")
         }
     }

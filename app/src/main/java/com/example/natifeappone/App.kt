@@ -3,6 +3,7 @@ package com.example.natifeappone
 import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.content.IntentFilter
 import android.os.Build
 
 class App : Application() {
@@ -10,6 +11,8 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         createNotificationChannels()
+        val receiver = MyBroadcastReceiver()
+        registerReceiver(receiver, IntentFilter("com.example.natifeappone.MY_ACTION"))
     }
 
     private fun createNotificationChannels(){
