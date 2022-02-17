@@ -16,7 +16,6 @@ class MyService : Service() {
 
         val itemId = intent?.getIntExtra(SERVICE_KEY, 404)
         val notificationIntent = Intent("com.example.natifeappone.MY_ACTION")
-//        notificationIntent.putExtra("RECEIVER_ITEM_KEY", itemId)
         Log.d("PutMyServiceID: ", itemId.toString())
         val pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, 0)
 
