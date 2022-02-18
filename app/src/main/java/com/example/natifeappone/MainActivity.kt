@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
         val itemIdFromReceiver = intent.getIntExtra(ItemActivity.KEY, 404)
         if (itemIdFromReceiver != 404) {
-            val intent = Intent(this, ItemActivity::class.java).apply{
+            val intent = Intent(this, ItemActivity::class.java).apply {
                 putExtra(ItemActivity.KEY, itemIdFromReceiver)
             }
             startActivity(intent)
@@ -40,8 +40,9 @@ class MainActivity : AppCompatActivity() {
 
             override fun onClickItem(item: Item) {
                 itemPreferences.setId(item.id)
-                val intent = Intent(this@MainActivity, ItemActivity::class.java)
-                intent.putExtra(ItemActivity.KEY, item.id)
+                val intent = Intent(this@MainActivity, ItemActivity::class.java).apply {
+                    putExtra(ItemActivity.KEY, item.id)
+                }
                 this@MainActivity.startActivity(intent)
             }
         })
