@@ -23,8 +23,15 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         val itemPreferences = ItemPreferences(this)
-
         startService()
+        val itemIdFromReceiver = intent.getIntExtra(ItemActivity.KEY, 404)
+        Log.d(Constants.MY_TAG, "onCreate itemId = $itemIdFromReceiver")
+        if (itemIdFromReceiver != 404 && savedInstanceState == null) {
+            val intent = Intent(this, ItemActivity::class.java).apply {
+                putExtra(ItemActivity.KEY, itemIdFromReceiver)
+            }
+            startActivity(intent)
+        }
 
         itemListAdapter = ItemListAdapter(object : OnItemClickListener {
 
@@ -42,17 +49,6 @@ class MainActivity : AppCompatActivity() {
             adapter = itemListAdapter
         }
         itemListAdapter.submitList(ItemHolder.list)
-    }
-
-    override fun onStart() {
-        super.onStart()
-        val itemIdFromReceiver = intent.getIntExtra(ItemActivity.KEY, 404)
-        if (itemIdFromReceiver != 404) {
-            val intent = Intent(this, ItemActivity::class.java).apply {
-                putExtra(ItemActivity.KEY, itemIdFromReceiver)
-            }
-            startActivity(intent)
-        }
     }
 
     private fun startService() {
