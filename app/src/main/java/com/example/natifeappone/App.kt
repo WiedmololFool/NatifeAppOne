@@ -12,7 +12,7 @@ class App : Application() {
         super.onCreate()
         createNotificationChannels()
         val receiver = MyBroadcastReceiver()
-        registerReceiver(receiver, IntentFilter("com.example.natifeappone.MY_ACTION"))
+        registerReceiver(receiver, IntentFilter(Constants.MY_ACTION))
     }
 
     private fun createNotificationChannels(){

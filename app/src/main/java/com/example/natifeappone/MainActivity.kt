@@ -15,7 +15,6 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
     lateinit var itemListAdapter: ItemListAdapter
-    lateinit var notificationManager: NotificationManagerCompat
         private set
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,18 +22,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        notificationManager = NotificationManagerCompat.from(this)
         val itemPreferences = ItemPreferences(this)
 
         startService()
-
-        val itemIdFromReceiver = intent.getIntExtra(ItemActivity.KEY, 404)
-        if (itemIdFromReceiver != 404) {
-            val intent = Intent(this, ItemActivity::class.java).apply {
-                putExtra(ItemActivity.KEY, itemIdFromReceiver)
-            }
-            startActivity(intent)
-        }
 
         itemListAdapter = ItemListAdapter(object : OnItemClickListener {
 
@@ -52,6 +42,17 @@ class MainActivity : AppCompatActivity() {
             adapter = itemListAdapter
         }
         itemListAdapter.submitList(ItemHolder.list)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val itemIdFromReceiver = intent.getIntExtra(ItemActivity.KEY, 404)
+        if (itemIdFromReceiver != 404) {
+            val intent = Intent(this, ItemActivity::class.java).apply {
+                putExtra(ItemActivity.KEY, itemIdFromReceiver)
+            }
+            startActivity(intent)
+        }
     }
 
     private fun startService() {
