@@ -5,7 +5,6 @@ import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
 import android.os.IBinder
-import android.util.Log
 import androidx.core.app.NotificationCompat
 
 class MyService : Service() {
@@ -14,11 +13,8 @@ class MyService : Service() {
     @SuppressLint("LaunchActivityFromNotification")
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 
-        val itemId = intent?.getIntExtra(SERVICE_KEY, 404)
-        val notificationIntent = Intent("com.example.natifeappone.MY_ACTION")
-        Log.d("PutMyServiceID: ", itemId.toString())
+        val notificationIntent = Intent(Constants.MY_ACTION)
         val pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, 0)
-
         val notification = NotificationCompat.Builder(this, App.CHANNEL_1_ID)
             .setSmallIcon(R.drawable.ic_service_notification)
             .setContentTitle("Foreground Service")
@@ -33,9 +29,5 @@ class MyService : Service() {
 
     override fun onBind(intent: Intent): IBinder? {
         return null
-    }
-
-    companion object{
-        const val SERVICE_KEY = "ServiceKey"
     }
 }

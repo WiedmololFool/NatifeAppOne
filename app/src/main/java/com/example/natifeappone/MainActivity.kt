@@ -23,11 +23,18 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-
-
         notificationManager = NotificationManagerCompat.from(this)
         val itemPreferences = ItemPreferences(this)
-        startService(itemPreferences.getId())
+
+        startService()
+
+        val itemIdFromReceiver = intent.getIntExtra(ItemActivity.KEY, 404)
+        if (itemIdFromReceiver != 404) {
+            val intent = Intent(this, ItemActivity::class.java).apply{
+                putExtra(ItemActivity.KEY, itemIdFromReceiver)
+            }
+            startActivity(intent)
+        }
 
         itemListAdapter = ItemListAdapter(object : OnItemClickListener {
 
@@ -46,10 +53,8 @@ class MainActivity : AppCompatActivity() {
         itemListAdapter.submitList(ItemHolder.list)
     }
 
-
-    private fun startService(itemId: Int) {
+    private fun startService() {
         val serviceIntent = Intent(this, MyService::class.java)
-        serviceIntent.putExtra(MyService.SERVICE_KEY, itemId)
         startService(serviceIntent)
     }
 
