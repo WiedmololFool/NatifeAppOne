@@ -25,8 +25,9 @@ class MainActivity : AppCompatActivity() {
         val itemPreferences = ItemPreferences(this)
         startService()
         val itemIdFromReceiver = intent.getIntExtra(ItemActivity.KEY, 404)
-        Log.d(Constants.MY_TAG, "onCreate itemId = $itemIdFromReceiver")
+        Log.d(Constants.MY_TAG, "MainActivity from Intent itemId = $itemIdFromReceiver")
         if (itemIdFromReceiver != 404 && savedInstanceState == null) {
+            Log.d(Constants.MY_TAG, "MainActivity if {} itemId = $itemIdFromReceiver")
             val intent = Intent(this, ItemActivity::class.java).apply {
                 putExtra(ItemActivity.KEY, itemIdFromReceiver)
             }

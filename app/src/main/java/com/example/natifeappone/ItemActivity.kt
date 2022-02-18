@@ -18,9 +18,10 @@ class ItemActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         val itemId = intent.getIntExtra(KEY, 404)
+        Log.d(Constants.MY_TAG, "ItemActivity from Intent itemId = $itemId")
         val item = ItemHolder.getItem(itemId)
         val itemPreferences = ItemPreferences(this)
-
+        Log.d(Constants.MY_TAG, "ItemActivity from ItemHolder itemId = ${item?.id.toString()}")
         Toast.makeText(this, "Выбран елемент c Id ${itemPreferences.getId()}", Toast.LENGTH_SHORT).show()
         with(binding) {
             tvId.text = item?.id.toString()
