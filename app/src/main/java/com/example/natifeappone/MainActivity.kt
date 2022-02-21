@@ -17,21 +17,23 @@ class MainActivity : AppCompatActivity() {
         val view = binding?.root
         setContentView(view)
         startService()
-
-        val itemIdFromReceiver = intent.getIntExtra(Constants.ID_KEY, 404)
-        Log.d(Constants.MY_TAG, "MainActivity Item Id from Intent = $itemIdFromReceiver")
-        val fragment = if (itemIdFromReceiver != 404 && savedInstanceState == null) {
-            ItemFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(Constants.ID_KEY, itemIdFromReceiver)
-                }
-            }
-        } else {
-            ListFragment()
-        }
+        val listFragment = ListFragment()
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container_view, fragment)
+            .replace(R.id.fragment_container_view, listFragment)
             .commit()
+
+        val itemIdFromReceiver = intent.getIntExtra(Constants.ID_KEY, Constants.ID_DEF_VAL)
+
+        if (itemIdFromReceiver != Constants.ID_DEF_VAL && savedInstanceState == null) {
+            Log.d(Constants.MY_TAG, "MainActivity Item Id from Intent = $itemIdFromReceiver")
+            supportFragmentManager.beginTransaction()
+                .replace(
+                    R.id.fragment_container_view,
+                    ItemFragment.newInstance(itemIdFromReceiver)
+                )
+                .addToBackStack(null)
+                .commit()
+        }
     }
 
     private fun startService() {

@@ -18,18 +18,14 @@ class App : Application() {
     private fun createNotificationChannels(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
            val serviceChannel = NotificationChannel(
-               CHANNEL_1_ID,
-               "Channel 1",
+               Constants.CHANNEL_1_ID,
+               getString(R.string.channel_1_name),
                NotificationManager.IMPORTANCE_DEFAULT
            )
-            serviceChannel.description = "This is Service Channel"
+            serviceChannel.description = getString(R.string.channel_1_description)
 
             val manager: NotificationManager = getSystemService(NotificationManager::class.java)
             manager.createNotificationChannel(serviceChannel)
         }
-    }
-
-    companion object{
-        const val CHANNEL_1_ID = "serviceChannel1"
     }
 }

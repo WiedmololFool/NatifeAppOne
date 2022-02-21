@@ -15,10 +15,10 @@ class MyService : Service() {
 
         val notificationIntent = Intent(Constants.MY_ACTION)
         val pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, 0)
-        val notification = NotificationCompat.Builder(this, App.CHANNEL_1_ID)
+        val notification = NotificationCompat.Builder(this, Constants.CHANNEL_1_ID)
             .setSmallIcon(R.drawable.ic_service_notification)
-            .setContentTitle("Foreground Service")
-            .setContentText("Tap to get last clicked Item")
+            .setContentTitle(getString(R.string.foreground_service_title))
+            .setContentText(getString(R.string.foreground_service_text))
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setContentIntent(pendingIntent)
             .build()

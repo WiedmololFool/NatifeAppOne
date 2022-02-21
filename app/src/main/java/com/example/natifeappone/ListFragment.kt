@@ -1,6 +1,5 @@
 package com.example.natifeappone
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -19,9 +18,14 @@ class ListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         val binding = FragmentListBinding.inflate(inflater, container, false)
         this.binding = binding
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val itemPreferences = context?.let { ItemPreferences(it) }
 
         itemListAdapter = ItemListAdapter(object : OnItemClickListener {
@@ -40,19 +44,19 @@ class ListFragment : Fragment() {
             }
         })
 
-        with(binding.rcView) {
-            layoutManager = LinearLayoutManager(context)
-            adapter = itemListAdapter
+        binding?.let {
+            with(it.rcView) {
+                layoutManager = LinearLayoutManager(context)
+                adapter = itemListAdapter
+            }
         }
         itemListAdapter?.submitList(ItemHolder.list)
-        return binding.root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
     }
-
 
     companion object {
 

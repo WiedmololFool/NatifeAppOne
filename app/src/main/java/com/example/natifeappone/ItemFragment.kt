@@ -16,7 +16,7 @@ class ItemFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            itemId = it.getInt(Constants.ID_KEY, 404)
+            itemId = it.getInt(Constants.ID_KEY, Constants.ID_DEF_VAL)
         }
     }
 
@@ -26,23 +26,32 @@ class ItemFragment : Fragment() {
     ): View? {
         val binding = FragmentItemBinding.inflate(inflater, container, false)
         this.binding = binding
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val item = itemId?.let { ItemHolder.getItem(it) }
         val itemPreferences = context?.let { ItemPreferences(it) }
-        Toast.makeText(context, "Выбран елемент c Id ${itemPreferences?.getId()}", Toast.LENGTH_SHORT).show()
-        with(binding) {
-            tvId.text = item?.id.toString()
-            tvItemName.text = item?.name
-            tvItemDescription.text = item?.description
+        Toast.makeText(context,
+            "${getString(R.string.toast_chosen_item_id)} ${itemPreferences?.getId()}",
+            Toast.LENGTH_SHORT).show()
+
+        binding?.let {
+            with(it) {
+                tvId.text = item?.id.toString()
+                tvItemName.text = item?.name
+                tvItemDescription.text = item?.description
+            }
         }
-        return binding.root
     }
 
     companion object {
 
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(id: Int) =
             ItemFragment().apply {
                 arguments = Bundle().apply {
-
+                    putInt(Constants.ID_KEY, id)
                 }
             }
     }
