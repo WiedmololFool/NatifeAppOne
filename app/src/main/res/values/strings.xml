@@ -1,11 +1,8 @@
 <resources>
     <string name="app_name">NatifeAppOne</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="channel_1_name">Channel 1</string>
     <string name="channel_1_description">This is Service Channel</string>
     <string name="foreground_service_title">Foreground Service</string>
     <string name="foreground_service_text">Tap to get last clicked Item</string>
     <string name="toast_chosen_item_id">Выбран елемент с Id = </string>
-
 </resources>
