@@ -4,5 +4,5 @@
     <string name="channel_1_description">This is Service Channel</string>
     <string name="foreground_service_title">Foreground Service</string>
     <string name="foreground_service_text">Tap to get last clicked Item</string>
-    <string name="toast_chosen_item_id">Выбран елемент с Id = </string>
+    <string name="toast_chosen_item_id">Выбран елемент с Id = %d</string>
 </resources>

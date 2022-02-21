@@ -17,9 +17,8 @@ class MainActivity : AppCompatActivity() {
         val view = binding?.root
         setContentView(view)
         startService()
-        val listFragment = ListFragment()
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container_view, listFragment)
+            .replace(R.id.fragment_container_view, ListFragment.newInstance())
             .commit()
 
         val itemIdFromReceiver = intent.getIntExtra(Constants.ID_KEY, Constants.ID_DEF_VAL)

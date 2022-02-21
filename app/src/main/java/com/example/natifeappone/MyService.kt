@@ -14,7 +14,8 @@ class MyService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 
         val notificationIntent = Intent(Constants.MY_ACTION)
-        val pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, 0)
+        val pendingIntent = PendingIntent
+            .getBroadcast(this, 0, notificationIntent, 0)
         val notification = NotificationCompat.Builder(this, Constants.CHANNEL_1_ID)
             .setSmallIcon(R.drawable.ic_service_notification)
             .setContentTitle(getString(R.string.foreground_service_title))

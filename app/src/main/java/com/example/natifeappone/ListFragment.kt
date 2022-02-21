@@ -60,8 +60,9 @@ class ListFragment : Fragment() {
 
     companion object {
 
-        fun newInstance(param1: String, param2: String) = null
-
+        fun newInstance(): ListFragment{
+            return ListFragment()
+        }
     }
 }
 

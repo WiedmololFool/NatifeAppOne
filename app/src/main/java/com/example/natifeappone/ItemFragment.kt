@@ -33,9 +33,11 @@ class ItemFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val item = itemId?.let { ItemHolder.getItem(it) }
         val itemPreferences = context?.let { ItemPreferences(it) }
-        Toast.makeText(context,
-            "${getString(R.string.toast_chosen_item_id)} ${itemPreferences?.getId()}",
-            Toast.LENGTH_SHORT).show()
+        Toast.makeText(
+            context,
+            getString(R.string.toast_chosen_item_id, itemPreferences?.getId()),
+            Toast.LENGTH_SHORT
+        ).show()
 
         binding?.let {
             with(it) {
@@ -48,11 +50,13 @@ class ItemFragment : Fragment() {
 
     companion object {
 
-        fun newInstance(id: Int) =
-            ItemFragment().apply {
+        fun newInstance(id: Int): ItemFragment {
+            return ItemFragment().apply {
                 arguments = Bundle().apply {
                     putInt(Constants.ID_KEY, id)
                 }
             }
+        }
+
     }
 }
