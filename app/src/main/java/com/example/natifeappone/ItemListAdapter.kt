@@ -9,7 +9,7 @@ import com.example.natifeappone.databinding.ListItemBinding
 import com.example.natifeappone.model.Item
 
 class ItemListAdapter(
-    private val onItemClickListener: OnItemClickListener,
+    private val onItemClickListener: (Item) -> Unit,
 ) : ListAdapter<Item, ItemListAdapter.ItemViewHolder>(ItemComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -28,7 +28,7 @@ class ItemListAdapter(
         fun bindItem(item: Item) = with(binding) {
             tvName.text = item.name
             root.setOnClickListener {
-                onItemClickListener.onClickItem(item)
+                onItemClickListener(item)
             }
         }
     }

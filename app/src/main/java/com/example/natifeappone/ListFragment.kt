@@ -28,21 +28,18 @@ class ListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val itemPreferences = context?.let { ItemPreferences(it) }
 
-        itemListAdapter = ItemListAdapter(object : OnItemClickListener {
-
-            override fun onClickItem(item: Item) {
-                itemPreferences?.setId(item.id)
-                val itemFragment = ItemFragment().apply {
-                    arguments = Bundle().apply {
-                        putInt(Constants.ID_KEY, item.id)
-                    }
+        itemListAdapter = ItemListAdapter { item ->
+            itemPreferences?.setId(item.id)
+            val itemFragment = ItemFragment().apply {
+                arguments = Bundle().apply {
+                    putInt(Constants.ID_KEY, item.id)
                 }
-                activity?.supportFragmentManager?.beginTransaction()
-                    ?.replace(R.id.fragment_container_view, itemFragment)
-                    ?.addToBackStack(null)
-                    ?.commit()
             }
-        })
+            activity?.supportFragmentManager?.beginTransaction()
+                ?.replace(R.id.fragment_container_view, itemFragment)
+                ?.addToBackStack(null)
+                ?.commit()
+        }
 
         binding?.let {
             with(it.rcView) {
@@ -60,7 +57,7 @@ class ListFragment : Fragment() {
 
     companion object {
 
-        fun newInstance(): ListFragment{
+        fun newInstance(): ListFragment {
             return ListFragment()
         }
     }
