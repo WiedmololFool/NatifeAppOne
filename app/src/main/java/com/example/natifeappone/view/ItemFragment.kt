@@ -1,4 +1,4 @@
-package com.example.natifeappone
+package com.example.natifeappone.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,18 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.example.natifeappone.Constants
+import com.example.natifeappone.R
 import com.example.natifeappone.databinding.FragmentItemBinding
+import com.example.natifeappone.model.Item
+import com.example.natifeappone.presenter.ItemPresenter
 
 class ItemFragment : Fragment() {
 
-    private var itemId: Int? = null
     private var binding: FragmentItemBinding? = null
+    private lateinit var itemPresenter: ItemPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            itemId = it.getInt(Constants.ID_KEY, Constants.ID_DEF_VAL)
-        }
+        itemPresenter = ItemPresenter(arguments?.getInt(Constants.ID_KEY, Constants.ID_DEF_VAL))
     }
 
     override fun onCreateView(
@@ -31,14 +33,15 @@ class ItemFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val item = itemId?.let { ItemHolder.getItem(it) }
-        val itemPreferences = context?.let { ItemPreferences(it) }
-        Toast.makeText(
-            context,
-            getString(R.string.toast_chosen_item_id, itemPreferences?.getId()),
-            Toast.LENGTH_SHORT
-        ).show()
+        itemPresenter.onViewAttached(this)
+    }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        itemPresenter.onViewDetached()
+    }
+
+    fun showItem(item: Item?) {
         binding?.let {
             with(it) {
                 tvId.text = item?.id.toString()

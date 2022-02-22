@@ -1,7 +1,8 @@
-package com.example.natifeappone
+package com.example.natifeappone.model
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.example.natifeappone.Constants
 
 class ItemPreferences(context: Context) {
 

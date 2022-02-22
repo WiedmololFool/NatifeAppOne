@@ -43,6 +43,4 @@ class ItemListAdapter(
             return oldItem == newItem
         }
     }
-//gdgdgdgd
-/////Hello World
 }

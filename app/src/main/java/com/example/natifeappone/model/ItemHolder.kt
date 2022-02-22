@@ -1,6 +1,4 @@
-package com.example.natifeappone
-
-import com.example.natifeappone.model.Item
+package com.example.natifeappone.model
 
 object ItemHolder {
 
