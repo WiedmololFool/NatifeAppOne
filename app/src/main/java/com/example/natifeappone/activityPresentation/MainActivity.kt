@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity(), ActivityView {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding?.root
         setContentView(view)
+        addListFragment()
         activityPresenter = ActivityPresenter(
             intent.getIntExtra(Constants.ID_KEY, Constants.ID_DEFAULT_VALUE)
         ).apply {

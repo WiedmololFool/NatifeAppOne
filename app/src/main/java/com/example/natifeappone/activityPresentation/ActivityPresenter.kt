@@ -24,7 +24,6 @@ class ActivityPresenter(
     }
 
   fun getFragment(savedInstanceState: Bundle?) {
-      view?.addListFragment()
       if (itemIdFromReceiver != Constants.ID_DEFAULT_VALUE && savedInstanceState == null) {
           view?.addItemFragment(itemIdFromReceiver)
       }
