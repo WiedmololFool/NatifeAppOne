@@ -1,4 +1,4 @@
-package com.example.natifeappone.view
+package com.example.natifeappone.itemPresentation
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,17 +9,15 @@ import android.widget.Toast
 import com.example.natifeappone.Constants
 import com.example.natifeappone.R
 import com.example.natifeappone.databinding.FragmentItemBinding
-import com.example.natifeappone.model.Item
-import com.example.natifeappone.presenter.ItemPresenter
 
-class ItemFragment : Fragment() {
+class ItemFragment : Fragment(), ItemView {
 
     private var binding: FragmentItemBinding? = null
     private lateinit var itemPresenter: ItemPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        itemPresenter = ItemPresenter(arguments?.getInt(Constants.ID_KEY, Constants.ID_DEF_VAL))
+        itemPresenter = ItemPresenter(arguments?.getInt(Constants.ID_KEY, Constants.ID_DEFAULT_VALUE))
     }
 
     override fun onCreateView(
@@ -33,22 +31,29 @@ class ItemFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        itemPresenter.onViewAttached(this)
+        itemPresenter.attach(this)
+        itemPresenter.getItem()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        itemPresenter.onViewDetached()
+        itemPresenter.detach()
     }
 
-    fun showItem(item: Item?) {
+    override fun showItem(item: Item) {
         binding?.let {
             with(it) {
-                tvId.text = item?.id.toString()
-                tvItemName.text = item?.name
-                tvItemDescription.text = item?.description
+                tvId.text = item.id.toString()
+                tvItemName.text = item.name
+                tvItemDescription.text = item.description
             }
         }
+        Toast.makeText(
+            context,
+             getString(R.string.toast_chosen_item_id, item.id),
+            Toast.LENGTH_SHORT
+        ).show()
+
     }
 
     companion object {

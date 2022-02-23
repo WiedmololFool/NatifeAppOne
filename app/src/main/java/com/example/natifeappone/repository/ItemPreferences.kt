@@ -1,4 +1,4 @@
-package com.example.natifeappone.model
+package com.example.natifeappone.repository
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -14,6 +14,7 @@ class ItemPreferences(context: Context) {
     }
 
     fun getId(): Int {
-        return sharedPreferences.getInt(Constants.SHARED_PREFERENCES_ID_KEY, Constants.ID_DEF_VAL)
+        return sharedPreferences.getInt(Constants.SHARED_PREFERENCES_ID_KEY,
+            Constants.ID_DEFAULT_VALUE)
     }
 }

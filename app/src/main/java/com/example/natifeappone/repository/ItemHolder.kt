@@ -1,4 +1,6 @@
-package com.example.natifeappone.model
+package com.example.natifeappone.repository
+
+import com.example.natifeappone.itemPresentation.Item
 
 object ItemHolder {
 
