@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity(), ActivityView {
         }
         startService()
     }
-    //test coomit
+
     override fun onDestroy() {
         super.onDestroy()
         activityPresenter.detach()
