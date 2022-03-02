@@ -11,7 +11,7 @@ import com.example.natifeappone.itemPresentation.ItemFragment
 import com.example.natifeappone.listPresentation.ListFragment
 
 class MainActivity : AppCompatActivity(), ActivityView {
-
+    //MVVM
     private var binding: ActivityMainBinding? = null
     private lateinit var activityPresenter: ActivityPresenter
 

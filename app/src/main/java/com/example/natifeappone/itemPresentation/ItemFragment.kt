@@ -17,7 +17,8 @@ class ItemFragment : Fragment(), ItemView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        itemPresenter = ItemPresenter(arguments?.getInt(Constants.ID_KEY, Constants.ID_DEFAULT_VALUE))
+        itemPresenter =
+            ItemPresenter(arguments?.getInt(Constants.ID_KEY, Constants.ID_DEFAULT_VALUE))
     }
 
     override fun onCreateView(
@@ -50,7 +51,7 @@ class ItemFragment : Fragment(), ItemView {
         }
         Toast.makeText(
             context,
-             getString(R.string.toast_chosen_item_id, item.id),
+            getString(R.string.toast_chosen_item_id, item.id),
             Toast.LENGTH_SHORT
         ).show()
 
