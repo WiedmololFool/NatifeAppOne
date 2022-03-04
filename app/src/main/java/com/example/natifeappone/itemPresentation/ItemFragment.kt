@@ -1,24 +1,36 @@
 package com.example.natifeappone.itemPresentation
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.natifeappone.Constants
 import com.example.natifeappone.R
 import com.example.natifeappone.databinding.FragmentItemBinding
 
-class ItemFragment : Fragment(), ItemView {
+class ItemFragment : Fragment() {
 
     private var binding: FragmentItemBinding? = null
-    private lateinit var itemPresenter: ItemPresenter
+    private lateinit var viewModel: ItemViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        itemPresenter =
-            ItemPresenter(arguments?.getInt(Constants.ID_KEY, Constants.ID_DEFAULT_VALUE))
+        viewModel = ViewModelProvider(
+            requireActivity(),
+            ItemViewModelFactory(arguments?.getInt(Constants.ID_KEY, Constants.ID_DEFAULT_VALUE))
+        ).get(ItemViewModel::class.java)
+        Log.d(
+            "ItemFragment VMFactory",
+            arguments?.getInt(
+                Constants.ID_KEY,
+                Constants.ID_DEFAULT_VALUE
+            ).toString()
+        )
     }
 
     override fun onCreateView(
@@ -32,16 +44,18 @@ class ItemFragment : Fragment(), ItemView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        itemPresenter.attach(this)
-        itemPresenter.getItem()
+        viewModel.item.observe(viewLifecycleOwner, Observer { item ->
+            showItem(item)
+            Log.d("ItemFragment observe", item.toString())
+        })
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        itemPresenter.detach()
+        binding = null
     }
 
-    override fun showItem(item: Item) {
+    fun showItem(item: Item) {
         binding?.let {
             with(it) {
                 tvId.text = item.id.toString()
@@ -54,7 +68,6 @@ class ItemFragment : Fragment(), ItemView {
             getString(R.string.toast_chosen_item_id, item.id),
             Toast.LENGTH_SHORT
         ).show()
-
     }
 
     companion object {
