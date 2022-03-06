@@ -1,4 +1,4 @@
-package com.example.natifeappone.activityPresentation
+package com.example.natifeappone.presentation.activityPresentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

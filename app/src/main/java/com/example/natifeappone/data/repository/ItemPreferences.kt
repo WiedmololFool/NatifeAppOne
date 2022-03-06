@@ -1,4 +1,4 @@
-package com.example.natifeappone.repository
+package com.example.natifeappone.data.repository
 
 import android.content.Context
 import android.content.SharedPreferences

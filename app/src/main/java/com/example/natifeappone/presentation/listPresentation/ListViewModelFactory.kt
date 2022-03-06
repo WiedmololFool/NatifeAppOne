@@ -1,9 +1,9 @@
-package com.example.natifeappone.listPresentation
+package com.example.natifeappone.presentation.listPresentation
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.natifeappone.repository.ItemPreferences
+import com.example.natifeappone.data.repository.ItemPreferences
 
 class ListViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
 

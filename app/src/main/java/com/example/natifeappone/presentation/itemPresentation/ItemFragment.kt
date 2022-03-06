@@ -1,4 +1,4 @@
-package com.example.natifeappone.itemPresentation
+package com.example.natifeappone.presentation.itemPresentation
 
 import android.os.Bundle
 import android.util.Log
@@ -7,30 +7,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.Observer
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.example.natifeappone.Constants
 import com.example.natifeappone.R
+import com.example.natifeappone.data.models.Item
 import com.example.natifeappone.databinding.FragmentItemBinding
 
 class ItemFragment : Fragment() {
 
     private var binding: FragmentItemBinding? = null
-    private lateinit var viewModel: ItemViewModel
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(
-            requireActivity(),
-            ItemViewModelFactory(arguments?.getInt(Constants.ID_KEY, Constants.ID_DEFAULT_VALUE))
+    private val viewModel by lazy {
+        val itemId = arguments?.getInt(
+            Constants.ID_KEY,
+            Constants.ID_DEFAULT_VALUE
+        ) ?: Constants.ID_DEFAULT_VALUE
+        ViewModelProvider(
+            viewModelStore,
+            ItemViewModelFactory(itemId)
         ).get(ItemViewModel::class.java)
-        Log.d(
-            "ItemFragment VMFactory",
-            arguments?.getInt(
-                Constants.ID_KEY,
-                Constants.ID_DEFAULT_VALUE
-            ).toString()
-        )
     }
 
     override fun onCreateView(
@@ -44,10 +39,17 @@ class ItemFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.item.observe(viewLifecycleOwner, Observer { item ->
-            showItem(item)
-            Log.d("ItemFragment observe", item.toString())
-        })
+        viewModel.apply {
+            item.observe(viewLifecycleOwner) { item ->
+                showItem(item)
+                Log.d("ItemFragment observe", item.toString())
+            }
+            validItemId.observe(viewLifecycleOwner){ validItemId ->
+                if (validItemId == false)
+                showNoItem()
+            }
+            validateItemId()
+        }
     }
 
     override fun onDestroyView() {
@@ -55,17 +57,25 @@ class ItemFragment : Fragment() {
         binding = null
     }
 
-    fun showItem(item: Item) {
-        binding?.let {
-            with(it) {
-                tvId.text = item.id.toString()
-                tvItemName.text = item.name
-                tvItemDescription.text = item.description
-            }
+    private fun showItem(item: Item) {
+        binding?.apply {
+            root.visibility = View.VISIBLE
+            tvId.text = item.id.toString()
+            tvItemName.text = item.name
+            tvItemDescription.text = item.description
         }
         Toast.makeText(
             context,
             getString(R.string.toast_chosen_item_id, item.id),
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    private fun showNoItem(){
+        binding?.root?.visibility = View.INVISIBLE
+        Toast.makeText(
+            context,
+            getString(R.string.toast_no_item),
             Toast.LENGTH_SHORT
         ).show()
     }

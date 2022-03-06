@@ -1,22 +1,20 @@
-package com.example.natifeappone.activityPresentation
+package com.example.natifeappone.presentation.activityPresentation
 
-import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.natifeappone.Constants
+import com.example.natifeappone.utils.SingleLiveEvent
 
 class ActivityViewModel(private var itemIdFromReceiver: Int): ViewModel() {
 
     private val _itemId = SingleLiveEvent<Int>()
     val itemId: LiveData<Int> = _itemId
 
-    fun getFragment(savedInstanceState: Bundle?): SingleLiveEvent<Int> {
-        if (itemIdFromReceiver != Constants.ID_DEFAULT_VALUE && savedInstanceState == null) {
+    fun getItemFragment() {
+        if (itemIdFromReceiver != Constants.ID_DEFAULT_VALUE) {
             _itemId.value = itemIdFromReceiver
         }
         Log.d("ViewModel Activity", _itemId.value.toString())
-        return _itemId
     }
 }

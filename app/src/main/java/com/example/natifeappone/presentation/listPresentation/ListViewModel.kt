@@ -1,11 +1,11 @@
-package com.example.natifeappone.listPresentation
+package com.example.natifeappone.presentation.listPresentation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.natifeappone.itemPresentation.Item
-import com.example.natifeappone.repository.ItemHolder
-import com.example.natifeappone.repository.ItemPreferences
+import com.example.natifeappone.data.models.Item
+import com.example.natifeappone.data.repository.ItemHolder
+import com.example.natifeappone.data.repository.ItemPreferences
 
 class ListViewModel(private val preferences: ItemPreferences) : ViewModel() {
 
@@ -16,7 +16,7 @@ class ListViewModel(private val preferences: ItemPreferences) : ViewModel() {
         getItems()
     }
 
-    fun getItems() {
+    private fun getItems() {
         _items.value = ItemHolder.list
     }
 

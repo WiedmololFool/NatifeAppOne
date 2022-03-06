@@ -1,6 +1,6 @@
-package com.example.natifeappone.repository
+package com.example.natifeappone.data.repository
 
-import com.example.natifeappone.itemPresentation.Item
+import com.example.natifeappone.data.models.Item
 
 object ItemHolder {
 
@@ -11,6 +11,6 @@ object ItemHolder {
     }
 
     fun getItem(id: Int): Item? {
-        return list.find { it.id == id }
+        return list.firstOrNull { it.id == id }
     }
 }

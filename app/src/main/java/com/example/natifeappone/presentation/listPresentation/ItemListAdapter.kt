@@ -1,4 +1,4 @@
-package com.example.natifeappone.listPresentation
+package com.example.natifeappone.presentation.listPresentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.natifeappone.databinding.ListItemBinding
-import com.example.natifeappone.itemPresentation.Item
+import com.example.natifeappone.data.models.Item
 
 class ItemListAdapter(
     private val onItemClickListener: (Item) -> Unit,

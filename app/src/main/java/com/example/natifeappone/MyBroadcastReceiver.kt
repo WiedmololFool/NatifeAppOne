@@ -3,8 +3,8 @@ package com.example.natifeappone
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.example.natifeappone.repository.ItemPreferences
-import com.example.natifeappone.activityPresentation.MainActivity
+import com.example.natifeappone.data.repository.ItemPreferences
+import com.example.natifeappone.presentation.activityPresentation.MainActivity
 
 class MyBroadcastReceiver : BroadcastReceiver() {
 
