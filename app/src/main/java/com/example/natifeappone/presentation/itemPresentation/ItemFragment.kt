@@ -41,12 +41,11 @@ class ItemFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.apply {
             item.observe(viewLifecycleOwner) { item ->
-                showItem(item)
+                item.fold(
+                    { showItem(item.getOrThrow()) },
+                    { showNoItem() }
+                )
                 Log.d("ItemFragment observe", item.toString())
-            }
-            validItemId.observe(viewLifecycleOwner){ validItemId ->
-                if (validItemId == false)
-                showNoItem()
             }
             validateItemId()
         }
@@ -71,7 +70,7 @@ class ItemFragment : Fragment() {
         ).show()
     }
 
-    private fun showNoItem(){
+    private fun showNoItem() {
         binding?.root?.visibility = View.INVISIBLE
         Toast.makeText(
             context,

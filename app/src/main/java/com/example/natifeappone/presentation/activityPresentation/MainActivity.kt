@@ -32,11 +32,11 @@ class MainActivity : AppCompatActivity() {
         val view = binding?.root
         setContentView(view)
         addListFragment()
-        viewModel.apply {
-            itemId.observe(this@MainActivity) { itemId ->
-                addItemFragment(itemId)
-            }
-            if (savedInstanceState == null) getItemFragment()
+        viewModel.itemId.observe(this@MainActivity) { itemId ->
+            addItemFragment(itemId)
+        }
+        if (savedInstanceState == null) {
+            viewModel.getItemFragment()
         }
         startService()
     }

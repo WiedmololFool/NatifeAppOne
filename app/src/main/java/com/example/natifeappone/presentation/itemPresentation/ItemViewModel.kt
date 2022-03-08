@@ -9,23 +9,29 @@ import com.example.natifeappone.data.repository.ItemHolder
 
 class ItemViewModel(private var itemId: Int) : ViewModel() {
 
-    private val _item = MutableLiveData<Item>()
-    val item: LiveData<Item> = _item
+    private val _item = MutableLiveData<Result<Item>>()
+    val item: LiveData<Result<Item>> = _item
 
-    private val _validItemId = MutableLiveData<Boolean>()
-    val validItemId: LiveData<Boolean> = _validItemId
+    private fun getItem() {
+        val result = ItemHolder.getItem(itemId) ?: Item(
+            Constants.ID_DEFAULT_VALUE,
+            "${Constants.ID_DEFAULT_VALUE}",
+            "${Constants.ID_DEFAULT_VALUE}"
+        )
+        _item.value = Result.success(result)
+    }
 
-    fun getItem() {
-        _item.value = itemId.let { ItemHolder.getItem(it) }
+    private fun getNoItem(){
+        _item.value = Result.failure(exception = Throwable("noItemException"))
     }
 
     fun validateItemId() {
         if (itemId == Constants.ID_DEFAULT_VALUE) {
-            _validItemId.value = false
+            getNoItem()
         } else {
-            _validItemId.value = true
             getItem()
         }
     }
+
 
 }

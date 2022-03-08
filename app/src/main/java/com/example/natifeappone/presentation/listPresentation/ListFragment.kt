@@ -33,6 +33,10 @@ class ListFragment : Fragment() {
             ?.commit()
     }
 
+    private val adapter2 = ItemListAdapter{
+        it
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
