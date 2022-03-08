@@ -39,16 +39,14 @@ class ItemFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.apply {
-            item.observe(viewLifecycleOwner) { item ->
+            viewModel.item.observe(viewLifecycleOwner) { item ->
                 item.fold(
                     { showItem(item.getOrThrow()) },
                     { showNoItem() }
                 )
                 Log.d("ItemFragment observe", item.toString())
             }
-            validateItemId()
-        }
+            viewModel.validateItemId()
     }
 
     override fun onDestroyView() {
