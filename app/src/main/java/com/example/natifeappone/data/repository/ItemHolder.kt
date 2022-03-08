@@ -10,7 +10,7 @@ object ItemHolder {
         }
     }
 
-    fun getItem(id: Int): Item? {
-        return list.firstOrNull { it.id == id }
+    fun getItem(id: Int): Item {
+        return list.firstOrNull { it.id == id } ?: throw IllegalArgumentException("Item required")
     }
 }

@@ -13,11 +13,7 @@ class ItemViewModel(private var itemId: Int) : ViewModel() {
     val item: LiveData<Result<Item>> = _item
 
     private fun getItem() {
-        val result = ItemHolder.getItem(itemId) ?: Item(
-            Constants.ID_DEFAULT_VALUE,
-            "${Constants.ID_DEFAULT_VALUE}",
-            "${Constants.ID_DEFAULT_VALUE}"
-        )
+        val result = ItemHolder.getItem(itemId)
         _item.value = Result.success(result)
     }
 
