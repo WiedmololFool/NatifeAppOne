@@ -46,7 +46,7 @@ class ItemFragment : Fragment() {
             )
             Log.d("ItemFragment observe", result.toString())
         }
-        viewModel.validateItemId()
+        viewModel.getItem()
     }
 
     override fun onDestroyView() {
